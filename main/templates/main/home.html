@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <div>
+        <h1> Hello {{request.user|title}}</h1>
+        <hr>
+    </div>
+</div>
+<br>
+{% for task in tasks %}
+<div class="card" >
+    <div class="card-body">
+        {% if task.complete %}
+            <i><s><h5 class="card-title">{{task.title}}</h5></s></i>
+        {% else %}
+            <h5 class="card-title">{{task.title}}</h5>
+        {% endif %}
+        <p class="card-text">{{task.description}}</p>
+        <a href="{% url 'update-task' task.id %}" class="card-link">Update</a>
+        <a href="{% url 'delete-task' task.id %}" class="card-link">Delete</a>
+    </div>
+  </div>
+  <br>
+  {% empty %}
+  <h3>No items in list</h3>
+{% endfor %}
+
+{% endblock %}
